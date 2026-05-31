@@ -18,13 +18,7 @@ class Solution {
                     }
                 }
             } else {
-                if (map.containsKey(nums[i])) {
-                    int cnt = map.get(nums[i]);
-                    map.put(nums[i], cnt + 1);
-                } else {
-                    map.put(nums[i], 1);
-                }
-
+               map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
             }
         }
         return ans;
