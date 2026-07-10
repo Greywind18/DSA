@@ -1,27 +1,22 @@
-class Solution(object):
-    def combinationSum3(self, k, n):
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        
+        def combinations(ans, temp,start, k, total):
+            if len(temp)==k and total==0:
+                ans.append(list(temp))
+                return
+            elif total<0:
+                return
+            
+            for i in range(start,10):
+                if i not in temp:
+                    temp.add(i)
+                    combinations(ans, temp,i+1, k, total-i)
+                    temp.remove(i)
+            
+            return
+        
         ans = []
-
-        def solve(k, n, idx, temp):
-            if k<0 or n<0:
-                return
-            if n==0 and k==0:
-                ans.append(temp[:])
-                return
-            
-            for i in range(idx,10):
-                temp.append(i)
-                solve(k-1, n-i, i+1, temp)
-                temp.pop()
-            
-        solve(k,n, 1, [])
+        temp = set()
+        combinations(ans, temp, 1, k, n)
         return ans
-            
-                
-        
-        """
-        :type k: int
-        :type n: int
-        :rtype: List[List[int]]
-        """
-        
