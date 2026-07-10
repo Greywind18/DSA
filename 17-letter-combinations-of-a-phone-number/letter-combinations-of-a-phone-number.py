@@ -1,41 +1,39 @@
-class Solution(object):
-    def letterCombinations(self, digits):
-        ans = []
-        if len(digits)==0:
-            return ans
-        hash = defaultdict(str)
-        hash['2'] = ["a","b","c"]
-        hash['3'] = ["d", "e","f"]
-        hash['4'] = ["g", "h","i"]
-        hash['5'] = ["j","k","l"]
-        hash['6'] = ["m","n","o"]
-        hash['7'] = ["p","q","r","s"]
-        hash['8'] = ["t", "u", "v"]
-        hash['9'] = ["w","x","y","z"]
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        col = dict()
+        col[2] = ["a", "b", "c"]
+        col[3] = ["d", "e", "f"]
+        col[4] = ["g", "h", "i"]
+        col[5] = ["j", "k", "l"]
+        col[6] = ["m", "n", "o"]
+        col[7] = ["p", "q", "r", "s"]
+        col[8] = ["t", "u", "v"]
+        col[9] = ["w", "x", "y", "z"]
 
-        def solve(idx, temp):
-            if idx >= len(digits):
-                ans.append(temp[:])
+        def dfs(digits, idx, n, ans, temp):
+            if idx>=n:
+                ans.append(temp)
                 return
-            numData = hash[digits[idx]]
-            for i in range(0, len(numData)):
-                temp+=numData[i]
-                solve(idx+1, temp)
+                digitHash = col[int(digits[idx])]
+
+            digitHash = col[int(digits[idx])]
+            for ch in digitHash:
+                temp += ch
+                dfs(digits, idx + 1, n, ans, temp)
                 temp = temp[:-1]
-        
-        solve(0, "")
+            
+
+        temp = ""
+        ans = []
+        n = len(digits)
+        if digits=="":
+            return ans
+        dfs(digits, 0, n, ans, temp)
         return ans
 
 
 
 
 
-        
-        
 
-
-        """
-        :type digits: str
-        :rtype: List[str]
-        """
         
